@@ -16,4 +16,34 @@ const create = async user => {
   }
 };
 
+const getUserByUsername = async username => {
+  logger.info(`Trying to find user with username: ${username}`);
+  const query = {
+    attributes: ['id', 'username', 'password'],
+    where: {
+      username: { $like: `%${username}%` }
+    }
+  };
+  try {
+    return await User.findOne(query);
+  } catch (err) {
+    logger.error(`Error while trying to find user with username: ${username}`);
+    throw errors.databaseError(err.message);
+  }
+};
+
+exports.getById = async id => {
+  try {
+    const foundedUser = await User.findByPk(id);
+    if (!foundedUser) {
+      throw errors.notFound(`User with id ${id} not found`);
+    }
+    return foundedUser;
+  } catch (err) {
+    logger.error(`Error while trying to get user with id: ${id}`);
+    throw errors.databaseError(err.message);
+  }
+};
+
 exports.create = create;
+exports.getUserByUsername = getUserByUsername;

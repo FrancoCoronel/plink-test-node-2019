@@ -40,6 +40,5 @@ module.exports = (sequelize, DataTypes) => {
       field: 'updated_at'
     }
   });
-  user.removeAttribute('id');
   return user;
 };

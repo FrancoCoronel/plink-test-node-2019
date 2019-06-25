@@ -7,7 +7,7 @@ const statusCodes = {
   [errors.DATABASE_ERROR]: 503,
   [errors.DEFAULT_ERROR]: 500,
   [errors.CREDENTIALS_ERROR]: 401,
-  [errors.NO_AUTHORIZATION_ERROR]: 401,
+  [errors.TOKEN_EXPIRATION_ERROR]: 400,
   [errors.BAD_REQUEST_ERROR]: 400,
   [errors.FORBIDDEN_ERROR]: 403,
   [errors.VALIDATION_ERROR]: 400,

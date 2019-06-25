@@ -17,3 +17,12 @@ exports.invalidParams = errors => internalError(errors, exports.INVALID_PARAMS);
 
 exports.VALIDATION_ERROR = 'validation_error';
 exports.validationError = message => internalError(message, exports.VALIDATION_ERROR);
+
+exports.CREDENTIALS_ERROR = 'credentials_error';
+exports.credentialsError = message => internalError(message, exports.CREDENTIALS_ERROR);
+
+exports.BAD_REQUEST_ERROR = 'bad_request_error';
+exports.badRequestError = message => internalError(message, exports.BAD_REQUEST_ERROR);
+
+exports.TOKEN_EXPIRATION_ERROR = 'token_expiration_error';
+exports.tokenExpirationError = message => internalError(message, exports.TOKEN_EXPIRATION_ERROR);
