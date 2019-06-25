@@ -1,4 +1,5 @@
-const paramErrors = require('./../constants/errorsCatalog').paramValidations;
+const constants = require('../constants'),
+  paramErrors = require('./../constants/errorsCatalog').paramValidations;
 
 exports.login = {
   username: {
@@ -47,6 +48,9 @@ exports.create = {
     in: 'body',
     errorMessage: paramErrors.PREFERENCE_MONEY,
     exists: true,
-    isString: true
+    isString: true,
+    custom: {
+      options: preferenceMoney => constants.PREFERENCE_MONEY.includes(preferenceMoney.toUpperCase())
+    }
   }
 };

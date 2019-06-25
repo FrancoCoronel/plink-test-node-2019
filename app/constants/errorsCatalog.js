@@ -1,3 +1,5 @@
+const constants = require('../constants');
+
 module.exports = {
   paramValidations: {
     USERNAME: { code: 'WP001', message: 'Username must be alphanumeric and has between 1 and 8 caracters' },
@@ -9,7 +11,8 @@ module.exports = {
     PASSWORD: { code: 'WP004', message: 'password is mandatory and must be string' },
     PREFERENCE_MONEY: {
       code: 'WP005',
-      message: 'preference_money is mandatory and must be string'
+      message: `preference_money is mandatory and must be string 
+      with one of these permitted values: ${constants.PREFERENCE_MONEY}`
     }
   }
 };
