@@ -30,6 +30,7 @@ const config = {
     database: {
       host: process.env.DB_HOST,
       port: process.env.DB_PORT,
+      name: process.env.DB_NAME,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD
     },
@@ -41,7 +42,14 @@ const config = {
     session: {
       header_name: 'authorization',
       secret: process.env.NODE_API_SESSION_SECRET
-    }
+    },
+    coinAPI: {
+      url: process.env.COIN_API_URL
+    },
+    bcrypt: {
+      saltRounds: process.env.SALT_ROUNDS
+    },
+    port: process.env.PORT
   }
 };
 
