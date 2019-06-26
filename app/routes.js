@@ -1,5 +1,6 @@
 const { healthCheck } = require('./controllers/healthCheck'),
   userController = require('./controllers/users'),
+  cryptoCoinController = require('./controllers/cryptoCoin'),
   paramsValidator = require('./middlewares/paramsValidator'),
   schemas = require('./schemas'),
   userFetcher = require('./middlewares/userFetcher'),
@@ -15,7 +16,7 @@ exports.init = app => {
     userController.login
   );
   app.post(
-    '/users/:id(\\d+)/coins',
+    '/users/:id/coins',
     [
       paramsValidator.validateSchemaAndFail(schemas.users.addCoinForUser),
       coinFetcher.fetch,
@@ -28,5 +29,10 @@ exports.init = app => {
     [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch],
     coinFetcher.fetch,
     userController.create
+  );
+  app.get(
+    '/coins/users/:id',
+    [paramsValidator.validateSchemaAndFail(schemas.users.checkId), userFetcher.fetch],
+    cryptoCoinController.coinsOfUser
   );
 };

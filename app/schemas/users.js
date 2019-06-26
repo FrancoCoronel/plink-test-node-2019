@@ -70,3 +70,13 @@ exports.addCoinForUser = {
     exists: true
   }
 };
+
+exports.checkId = {
+  id: {
+    in: ['params'],
+    errorMessage: paramErrors.ID,
+    isInt: true,
+    toInt: true,
+    exists: true
+  }
+};
