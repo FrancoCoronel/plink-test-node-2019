@@ -2,14 +2,20 @@ const bcrypt = require('bcrypt'),
   constants = require('../constants'),
   errors = require('../errors'),
   logger = require('../logger'),
-  User = require('../models').user;
+  User = require('../models').user,
+  CryptoCoin = require('../models').crypto_coin;
 
 const create = async user => {
   logger.info(`Trying to create a new user: ${user}`);
   const { password } = user;
   user.password = await bcrypt.hash(password, constants.SALT_ROUNDS);
   try {
-    return await User.create(user);
+    const createdUser = await User.create(user);
+    await CryptoCoin.create({
+      userId: createdUser.id,
+      coin: user.preferenceMoney
+    });
+    return createdUser;
   } catch (err) {
     logger.error(`Error while trying to create a new user: ${err}`);
     throw errors.databaseError(err.message);
@@ -42,6 +48,26 @@ exports.getById = async id => {
   } catch (err) {
     logger.error(`Error while trying to get user with id: ${id}`);
     throw errors.databaseError(err.message);
+  }
+};
+
+exports.createCoin = async (userId, coin) => {
+  logger.info(`User is trying to add a coin ${coin}`);
+  try {
+    const [coinForUser, created] = await CryptoCoin.findOrCreate({
+      where: {
+        userId,
+        coin
+      },
+      defaults: { userId, coin }
+    });
+    if (!created) {
+      throw errors.validationError(`User has  already added a ${coin} coin`);
+    }
+    return coinForUser;
+  } catch (err) {
+    logger.error(`Error while trying to add a coin ${coin} for user with id: ${userId}`);
+    throw err;
   }
 };
 

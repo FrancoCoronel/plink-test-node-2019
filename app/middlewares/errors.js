@@ -12,15 +12,17 @@ const statusCodes = {
   [errors.FORBIDDEN_ERROR]: 403,
   [errors.VALIDATION_ERROR]: 400,
   [errors.INVALID_PARAMS]: 422,
-  [errors.GPS_GATE_ERROR]: 503
+  [errors.COIN_API_ERROR]: 503
 };
+
+const errorFromCoinApi = error => error.internalCode === errors.COIN_API_ERROR;
 
 const sequelizeError = error =>
   error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError';
 
 const parameterError = error => error.name === 'ParameterMissingError';
 
-exports.handle = (error, req, res, next) => {
+const handleInternalError = (error, req, res, next) => {
   let status = '';
   if (sequelizeError(error) || parameterError(error)) {
     error.internalCode = 'validation_error';
@@ -42,4 +44,24 @@ exports.handle = (error, req, res, next) => {
   };
 
   return res.send(response);
+};
+
+// eslint-disable-next-line no-unused-vars
+const handleCoinApirError = (error, req, res, next) => {
+  const status = statusCodes[error.internalCode];
+  res.status(status);
+  const response = {
+    status_code: status,
+    origin: 'coinApiServer',
+    errors: error.message,
+    internal_code: error.internalCode
+  };
+  return res.send(response);
+};
+
+exports.handle = (error, req, res, next) => {
+  if (errorFromCoinApi(error)) {
+    return handleCoinApirError(error, req, res, next);
+  }
+  return handleInternalError(error, req, res, next);
 };

@@ -26,3 +26,12 @@ exports.badRequestError = message => internalError(message, exports.BAD_REQUEST_
 
 exports.TOKEN_EXPIRATION_ERROR = 'token_expiration_error';
 exports.tokenExpirationError = message => internalError(message, exports.TOKEN_EXPIRATION_ERROR);
+
+exports.FORBIDDEN_ERROR = 'forbidden_error';
+exports.forbiddenError = message => internalError(message, exports.FORBIDDEN_ERROR);
+
+exports.COIN_API_ERROR = 'coin_api_error';
+exports.coinApiError = error => ({
+  message: error.error,
+  internalCode: exports.COIN_API_ERROR
+});

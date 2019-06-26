@@ -2,13 +2,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
     queryInterface
-      .createTable('crypto_coin', {
+      .createTable('crypto_coins', {
         user_id: {
           allowNull: true,
           foreignKey: true,
           type: Sequelize.INTEGER,
           references: {
-            model: 'user',
+            model: 'users',
             key: 'id'
           }
         },
@@ -30,5 +30,5 @@ module.exports = {
           name: 'coins-pk'
         });
       }),
-  down: queryInterface => queryInterface.dropTable('crypto_coin')
+  down: queryInterface => queryInterface.dropTable('crypto_coins')
 };

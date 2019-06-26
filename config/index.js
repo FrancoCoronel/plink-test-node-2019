@@ -41,10 +41,12 @@ const config = {
     },
     session: {
       header_name: 'authorization',
-      secret: process.env.NODE_API_SESSION_SECRET
+      secret: process.env.NODE_API_SESSION_SECRET,
+      expirationDays: process.env.EXPIRATION_DAYS
     },
     coinAPI: {
-      url: process.env.COIN_API_URL
+      url: process.env.COIN_API_URL,
+      xRapidApiKey: process.env.X_RAPID_API_KEY
     },
     bcrypt: {
       saltRounds: process.env.SALT_ROUNDS
