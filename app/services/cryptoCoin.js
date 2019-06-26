@@ -1,4 +1,5 @@
-const axios = require('axios'),
+const _ = require('lodash'),
+  axios = require('axios'),
   CryptoCoin = require('../models').crypto_coin,
   constants = require('../constants'),
   errors = require('../errors'),
@@ -7,6 +8,7 @@ const axios = require('axios'),
 
 const URL = constants.COIN_API_URL;
 const token = constants.X_RAPID_API_KEY;
+const TOP3 = 3;
 
 exports.checkCoin = async coin => {
   const url = `${URL}/ticker?show=${coin}&coin=btc`;
@@ -38,7 +40,7 @@ exports.getCoinsOfUser = async userId => {
   }
 };
 
-exports.getCurrentlyCoinsInfo = async (coinIds, preferenceMoney) => {
+const getCoinsInfo = async (coinIds, preferenceMoney) => {
   const coinsInfo = [];
   try {
     await Promise.all(
@@ -51,9 +53,29 @@ exports.getCurrentlyCoinsInfo = async (coinIds, preferenceMoney) => {
         coinsInfo.push(response.data);
       })
     );
+    return coinsInfo;
+  } catch (err) {
+    throw errors.coinApiError(err);
+  }
+};
+
+exports.getCurrentlyCoinsInfo = async (coinIds, preferenceMoney) => {
+  try {
+    const coinsInfo = await getCoinsInfo(coinIds, preferenceMoney);
     return cryptoCoinSerializer.coinsInfo(coinsInfo);
   } catch (err) {
     logger.error(`Error while trying to get coins info of ${coinIds}`);
+    throw err;
+  }
+};
+
+exports.getTop3CoinsInfo = async (coinIds, preferenceMoney, order) => {
+  const coindIdsWithoutPreferenceMoney = _.without(coinIds, preferenceMoney);
+  try {
+    const coinsInfo = await getCoinsInfo(coindIdsWithoutPreferenceMoney, preferenceMoney);
+    return _.orderBy(cryptoCoinSerializer.coinsInfo(coinsInfo), ['price'], [order]).slice(0, TOP3);
+  } catch (err) {
+    logger.error('Error while trying to get top 3 coins info');
     throw err;
   }
 };
