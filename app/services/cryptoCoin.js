@@ -3,8 +3,7 @@ const _ = require('lodash'),
   CryptoCoin = require('../models').crypto_coin,
   constants = require('../constants'),
   errors = require('../errors'),
-  logger = require('../logger'),
-  cryptoCoinSerializer = require('../serializers/cryptoCoin');
+  logger = require('../logger');
 
 const URL = constants.COIN_API_URL;
 const token = constants.X_RAPID_API_KEY;
@@ -36,7 +35,7 @@ exports.getCoinsOfUser = async userId => {
     return foundedCoinsOfUser;
   } catch (err) {
     logger.error(`Error while trying to get coins of user with id ${userId}`);
-    throw err;
+    throw errors.databaseError(err.message);
   }
 };
 
@@ -62,7 +61,7 @@ const getCoinsInfo = async (coinIds, preferenceMoney) => {
 exports.getCurrentlyCoinsInfo = async (coinIds, preferenceMoney) => {
   try {
     const coinsInfo = await getCoinsInfo(coinIds, preferenceMoney);
-    return cryptoCoinSerializer.coinsInfo(coinsInfo);
+    return coinsInfo;
   } catch (err) {
     logger.error(`Error while trying to get coins info of ${coinIds}`);
     throw err;
@@ -73,7 +72,7 @@ exports.getTop3CoinsInfo = async (coinIds, preferenceMoney, order) => {
   const coindIdsWithoutPreferenceMoney = _.without(coinIds, preferenceMoney);
   try {
     const coinsInfo = await getCoinsInfo(coindIdsWithoutPreferenceMoney, preferenceMoney);
-    return _.orderBy(cryptoCoinSerializer.coinsInfo(coinsInfo), ['price'], [order]).slice(0, TOP3);
+    return _.orderBy(coinsInfo, ['price'], [order]).slice(0, TOP3);
   } catch (err) {
     logger.error('Error while trying to get top 3 coins info');
     throw err;

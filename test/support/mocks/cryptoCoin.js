@@ -1,3 +1,6 @@
+/* eslint-disable new-cap */
+const chance = require('chance').Chance();
+
 exports.coinInfo = {
   source: 'BraveNewCoin',
   coin_id: 'LTC',
@@ -17,3 +20,16 @@ exports.addedCoinForUser = userId => ({
   userId,
   coin: exports.coinInfo.coin_id
 });
+
+exports.coinsOfUser = userId =>
+  Array.from({ length: chance.integer({ min: 5, max: 10 }) }, () => ({
+    userId,
+    coin: chance.string()
+  }));
+
+exports.currentlyCoinsInfo = coins =>
+  coins.map(coin => ({
+    to_quantity: chance.floating({ min: 1, max: 100 }),
+    from_name: coin,
+    source: chance.string()
+  }));

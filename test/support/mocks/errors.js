@@ -18,3 +18,10 @@ exports.credentialsError = message => ({
   origin: 'PlinkApi',
   status_code: 401
 });
+
+exports.coinApiError = message => ({
+  errors: message,
+  internal_code: 'coin_api_error',
+  origin: 'coinApiServer',
+  status_code: 503
+});

@@ -39,7 +39,6 @@ describe('users controller', () => {
   describe('/users/sessions POST', () => {
     let request;
     let foundedUser;
-    let accessTokenMock;
 
     context('When all interactions work OK', () => {
       beforeEach(async () => {
@@ -77,6 +76,7 @@ describe('users controller', () => {
           invalidUser = simpleMock
             .mock(sessionManager, 'login')
             .rejectWith(errors.credentialsError(errorMessage));
+
           accessTokenMock = simpleMock
             .mock(sessionManager, 'generateAccessToken')
             .resolveWith(userMock.accessToken);
