@@ -35,4 +35,10 @@ exports.init = app => {
     [paramsValidator.validateSchemaAndFail(schemas.users.checkId), userFetcher.fetch],
     cryptoCoinController.coinsOfUser
   );
+
+  app.get(
+    '/coins/top_3/users/:id',
+    [paramsValidator.validateSchemaAndFail(schemas.users.top3), userFetcher.fetch],
+    cryptoCoinController.getTop3CoinsOfUser
+  );
 };

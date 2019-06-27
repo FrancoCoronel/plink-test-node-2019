@@ -22,6 +22,10 @@ module.exports = {
     ID: {
       code: 'WP007',
       message: 'id is mandatory and must be an integer'
+    },
+    ORDER: {
+      code: 'WP008',
+      message: `order is optional and must be a string with one of these permitted values: ${constants.ORDER}`
     }
   }
 };

@@ -80,3 +80,22 @@ exports.checkId = {
     exists: true
   }
 };
+
+exports.top3 = {
+  id: {
+    in: ['params'],
+    errorMessage: paramErrors.ID,
+    isInt: true,
+    toInt: true,
+    exists: true
+  },
+  order: {
+    in: ['query'],
+    errorMessage: paramErrors.ORDER,
+    optional: true,
+    isString: true,
+    custom: {
+      options: order => constants.ORDER.includes(order.toLowerCase())
+    }
+  }
+};
