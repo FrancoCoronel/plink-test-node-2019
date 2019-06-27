@@ -1,12 +1,14 @@
-const userService = require('../services/users'),
+const errors = require('../errors'),
+  logger = require('../logger'),
+  userService = require('../services/users'),
   userMapper = require('../mappers/users'),
   sessionManager = require('../services/sessionManager');
 
 exports.create = async (req, res, next) => {
   const user = userMapper.create(req.body);
   try {
-    const response = await userService.create(user);
-    res.status(201).send(response);
+    const createdUser = await userService.create(user);
+    res.status(201).send(createdUser);
   } catch (err) {
     next(err);
   }
@@ -21,6 +23,23 @@ exports.login = async (req, res, next) => {
       token: accessToken.token,
       exp: accessToken.exp
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.addCoinForUser = async (req, res, next) => {
+  const authenticatedUserId = req.user.id;
+  const userId = req.params.id;
+  const { coin } = req.body;
+  logger.info(`User ${req.user.id} is trying to add coin ${coin}`);
+
+  try {
+    if (authenticatedUserId !== userId) {
+      throw errors.forbiddenError('User is not allowed to add a coin to another user');
+    }
+    const createdCoin = await userService.createCoin(userId, coin);
+    res.status(201).send(createdCoin);
   } catch (err) {
     next(err);
   }

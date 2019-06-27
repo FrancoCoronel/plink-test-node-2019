@@ -39,6 +39,7 @@
     "email": "tls@wolox.com.ar"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
@@ -49,6 +50,7 @@
     "jwt-simple": "^0.5.6",
     "moment": "^2.24.0",
     "pg": "^7.4.1",
+    "save": "^2.4.0",
     "sequelize": "^4.34.0",
     "umzug": "^2.1.0"
   },

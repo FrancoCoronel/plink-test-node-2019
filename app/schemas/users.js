@@ -54,3 +54,19 @@ exports.create = {
     }
   }
 };
+
+exports.addCoinForUser = {
+  coin: {
+    in: 'body',
+    errorMessage: paramErrors.COIN,
+    exists: true,
+    isString: true
+  },
+  id: {
+    in: ['params'],
+    errorMessage: paramErrors.ID,
+    isInt: true,
+    toInt: true,
+    exists: true
+  }
+};

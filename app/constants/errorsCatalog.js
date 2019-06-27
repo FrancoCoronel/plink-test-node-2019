@@ -13,6 +13,15 @@ module.exports = {
       code: 'WP005',
       message: `preference_money is mandatory and must be string 
       with one of these permitted values: ${constants.PREFERENCE_MONEY}`
+    },
+    COIN: {
+      code: 'WP006',
+      message: `coin is mandatory and must be string 
+      with one of these permitted values: ${constants.PREFERENCE_MONEY}`
+    },
+    ID: {
+      code: 'WP007',
+      message: 'id is mandatory and must be an integer'
     }
   }
 };

@@ -3,6 +3,7 @@ const { healthCheck } = require('./controllers/healthCheck'),
   paramsValidator = require('./middlewares/paramsValidator'),
   schemas = require('./schemas'),
   userFetcher = require('./middlewares/userFetcher'),
+  coinFetcher = require('./middlewares/coinFetcher'),
   cors = require('cors');
 
 exports.init = app => {
@@ -14,8 +15,18 @@ exports.init = app => {
     userController.login
   );
   app.post(
+    '/users/:id(\\d+)/coins',
+    [
+      paramsValidator.validateSchemaAndFail(schemas.users.addCoinForUser),
+      coinFetcher.fetch,
+      userFetcher.fetch
+    ],
+    userController.addCoinForUser
+  );
+  app.post(
     '/users',
     [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch],
+    coinFetcher.fetch,
     userController.create
   );
 };

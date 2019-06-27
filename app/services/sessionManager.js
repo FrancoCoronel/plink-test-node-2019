@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt'),
 
 const SECRET = config.common.session.secret;
 
-const expirationDate = () => moment().add(constants.EXPIRATION_DAYS, 'minutes');
+const expirationDate = () => moment().add(constants.EXPIRATION_DAYS, 'days');
 
 exports.HEADER_NAME = config.common.session.header_name;
 

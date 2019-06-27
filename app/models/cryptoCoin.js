@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const cryptoCoin = sequelize.define('cryptoCoin', {
+  const cryptoCoin = sequelize.define('crypto_coin', {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -3,5 +3,5 @@ exports.create = user => ({
   password: user.password,
   firstName: user.first_name,
   lastName: user.last_name,
-  preferenceMoney: user.preference_money
+  preferenceMoney: user.preference_money.toUpperCase()
 });
