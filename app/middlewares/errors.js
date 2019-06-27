@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const errors = require('../errors');
 
 const DEFAULT_STATUS_CODE = 500;
@@ -5,14 +6,14 @@ const DEFAULT_STATUS_CODE = 500;
 const statusCodes = {
   [errors.NOT_FOUND]: 404,
   [errors.DATABASE_ERROR]: 503,
-  [errors.DEFAULT_ERROR]: 500,
   [errors.CREDENTIALS_ERROR]: 401,
   [errors.TOKEN_EXPIRATION_ERROR]: 400,
   [errors.BAD_REQUEST_ERROR]: 400,
   [errors.FORBIDDEN_ERROR]: 403,
   [errors.VALIDATION_ERROR]: 400,
   [errors.INVALID_PARAMS]: 422,
-  [errors.COIN_API_ERROR]: 503
+  [errors.COIN_API_ERROR]: 503,
+  [errors.DEFAULT_ERROR]: 500
 };
 
 const errorFromCoinApi = error => error.internalCode === errors.COIN_API_ERROR;
@@ -29,10 +30,6 @@ const handleInternalError = (error, req, res, next) => {
   }
   if (error.internalCode) {
     status = statusCodes[error.internalCode] || DEFAULT_STATUS_CODE;
-  } else {
-    // Unrecognized error, notifying it to rollbar.
-    next(error);
-    status = exports.DEFAULT_STATUS_CODE;
   }
   res.status(status);
 
@@ -46,7 +43,6 @@ const handleInternalError = (error, req, res, next) => {
   return res.send(response);
 };
 
-// eslint-disable-next-line no-unused-vars
 const handleCoinApirError = (error, req, res, next) => {
   const status = statusCodes[error.internalCode];
   res.status(status);

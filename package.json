@@ -43,6 +43,7 @@
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "chance": "^1.0.18",
     "cors": "^2.8.5",
     "express": "^4.16.2",
     "express-validator": "^6.0.1",
@@ -53,6 +54,7 @@
     "pg": "^7.4.1",
     "save": "^2.4.0",
     "sequelize": "^4.34.0",
+    "simple-mock": "^0.8.0",
     "umzug": "^2.1.0"
   },
   "devDependencies": {

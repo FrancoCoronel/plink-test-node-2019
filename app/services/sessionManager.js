@@ -31,7 +31,7 @@ exports.generateAccessToken = async user => {
     };
   } catch (err) {
     logger.error(`Error while trying to generate an access token: ${err}`);
-    throw err;
+    throw errors.defaultError(err);
   }
 };
 

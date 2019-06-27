@@ -26,8 +26,7 @@ exports.init = app => {
   );
   app.post(
     '/users',
-    [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch],
-    coinFetcher.fetch,
+    [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch, coinFetcher.fetch],
     userController.create
   );
   app.get(
