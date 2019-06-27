@@ -1,8 +1,21 @@
-// const controller = require('./controllers/controller');
-const { healthCheck } = require('./controllers/healthCheck');
+const { healthCheck } = require('./controllers/healthCheck'),
+  userController = require('./controllers/users'),
+  paramsValidator = require('./middlewares/paramsValidator'),
+  schemas = require('./schemas'),
+  userFetcher = require('./middlewares/userFetcher'),
+  cors = require('cors');
+
 exports.init = app => {
+  app.use(cors());
   app.get('/health', healthCheck);
-  // app.get('/endpoint/get/path', [], controller.methodGET);
-  // app.put('/endpoint/put/path', [], controller.methodPUT);
-  // app.post('/endpoint/post/path', [], controller.methodPOST);
+  app.post(
+    '/users/sessions',
+    [paramsValidator.validateSchemaAndFail(schemas.users.login)],
+    userController.login
+  );
+  app.post(
+    '/users',
+    [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch],
+    userController.create
+  );
 };

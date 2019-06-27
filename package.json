@@ -39,14 +39,18 @@
     "email": "tls@wolox.com.ar"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.5",
     "express": "^4.16.2",
-    "jwt-simple": "^0.5.1",
-    "sequelize": "^4.34.0",
+    "express-validator": "^6.0.1",
+    "express-wolox-logger": "0.0.2",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.24.0",
     "pg": "^7.4.1",
-    "umzug": "^2.1.0",
-    "express-wolox-logger": "0.0.2"
+    "sequelize": "^4.34.0",
+    "umzug": "^2.1.0"
   },
   "devDependencies": {
     "babel": "6.23.0",
