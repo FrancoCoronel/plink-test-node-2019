@@ -1,5 +1,4 @@
 const errors = require('../errors'),
-  logger = require('../logger'),
   userService = require('../services/users'),
   userMapper = require('../mappers/users'),
   userSerializer = require('../serializers/user'),
@@ -31,7 +30,6 @@ exports.addCoinForUser = async (req, res, next) => {
   const authenticatedUserId = req.user.id;
   const userId = req.params.id;
   const { coin } = req.body;
-  logger.info(`User ${req.user.id} is trying to add coin ${coin}`);
 
   try {
     if (authenticatedUserId !== userId) {

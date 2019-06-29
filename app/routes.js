@@ -26,17 +26,17 @@ exports.init = app => {
   );
   app.post(
     '/users',
-    [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch, coinFetcher.fetch],
+    [paramsValidator.validateSchemaAndFail(schemas.users.create), userFetcher.fetch],
     userController.create
   );
   app.get(
-    '/coins/users/:id',
+    '/users/:id/coins',
     [paramsValidator.validateSchemaAndFail(schemas.users.checkId), userFetcher.fetch],
     cryptoCoinController.coinsOfUser
   );
 
   app.get(
-    '/coins/top_3/users/:id',
+    '/users/:id/coins/top',
     [paramsValidator.validateSchemaAndFail(schemas.users.top3), userFetcher.fetch],
     cryptoCoinController.getTop3CoinsOfUser
   );

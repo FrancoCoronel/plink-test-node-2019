@@ -36,7 +36,7 @@ const handleInternalError = (error, req, res, next) => {
   const response = {
     status_code: status,
     origin: 'PlinkApi',
-    errors: error.messages || [error.message],
+    errors: error.messages || error.message,
     internal_code: error.internalCode
   };
 
@@ -61,3 +61,5 @@ exports.handle = (error, req, res, next) => {
   }
   return handleInternalError(error, req, res, next);
 };
+
+exports.statusCodes = statusCodes;

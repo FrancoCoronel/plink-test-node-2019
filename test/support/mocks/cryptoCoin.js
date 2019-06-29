@@ -1,5 +1,8 @@
-/* eslint-disable new-cap */
-const chance = require('chance').Chance();
+/* eslint-disable */
+const chance = require('chance').Chance(),
+  arrays = require('../arrays'),
+  userMock = require('./user'),
+  constants = require('../../../app/constants');
 
 exports.coinInfo = {
   source: 'BraveNewCoin',
@@ -33,3 +36,22 @@ exports.currentlyCoinsInfo = coins =>
     from_name: coin,
     source: chance.string()
   }));
+
+exports.ramdomValidCoin = () => {
+  let coin;
+  do {
+    coin = arrays.sampleFromArray(constants.PREFERENCE_MONEY);
+  } while (userMock.genericUser.preferenceMoney !== coin);
+  return coin;
+};
+
+exports.tickerResponse = coin => ({
+    success: true,
+    source: "BraveNewCoin",
+    coin_id: coin
+});
+
+exports.notFoundResponse = {
+    success: false,
+    error: 'The coin specified is not available'
+};

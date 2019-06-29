@@ -1,6 +1,5 @@
-/* eslint-disable no-undef */
-/* eslint-disable init-declarations */
-/* eslint-disable require-atomic-updates */
+/* eslint-disable */
+
 const chai = require('chai'),
   chaiHttp = require('chai-http'),
   { expect } = require('chai'),
@@ -33,9 +32,12 @@ const createAccessToken = async () => {
   }
 };
 
+const COINS_FOR_USER_ENDPOINT = userId => `/users/${userId}/coins`;
+const TOP_COINS_FOR_USER_ENDPOINT = userId => `/users/${userId}/coins/top`;
+
 describe('crytoCoin controller', () => {
   createAccessToken();
-  describe('/coins/users/:id GET', () => {
+  describe('/users/:id/coins GET', () => {
     let request;
     let coinsOfUserFunc;
     let currentlyCoinsInfoFunc;
@@ -54,7 +56,7 @@ describe('crytoCoin controller', () => {
 
         request = await chai
           .request(server)
-          .get(`/coins/users/${userMock.genericUser.id}`)
+          .get(COINS_FOR_USER_ENDPOINT(userMock.genericUser.id))
           .set(constants.AUTHORIZATION_HEADER_NAME, accessToken.token);
       });
 
@@ -89,7 +91,7 @@ describe('crytoCoin controller', () => {
 
           request = await chai
             .request(server)
-            .get(`/coins/users/${userMock.genericUser.id}`)
+            .get(COINS_FOR_USER_ENDPOINT(userMock.genericUser.id))
             .set(constants.AUTHORIZATION_HEADER_NAME, accessToken.token);
         });
 
@@ -123,7 +125,7 @@ describe('crytoCoin controller', () => {
 
           request = await chai
             .request(server)
-            .get(`/coins/users/${userMock.genericUser.id}`)
+            .get(COINS_FOR_USER_ENDPOINT(userMock.genericUser.id))
             .set(constants.AUTHORIZATION_HEADER_NAME, accessToken.token);
         });
 
@@ -144,7 +146,7 @@ describe('crytoCoin controller', () => {
     });
   });
 
-  describe('/coins/top_3/users/:id GET', () => {
+  describe('/users/:id/coins/top GET', () => {
     let request;
     let coinsOfUserFunc;
     let currentlyCoinsInfoFunc;
@@ -163,7 +165,7 @@ describe('crytoCoin controller', () => {
 
         request = await chai
           .request(server)
-          .get(`/coins/top_3/users/${userMock.genericUser.id}`)
+          .get(TOP_COINS_FOR_USER_ENDPOINT(userMock.genericUser.id))
           .set(constants.AUTHORIZATION_HEADER_NAME, accessToken.token);
       });
 
@@ -198,7 +200,7 @@ describe('crytoCoin controller', () => {
 
           request = await chai
             .request(server)
-            .get(`/coins/top_3/users/${userMock.genericUser.id}`)
+            .get(TOP_COINS_FOR_USER_ENDPOINT(userMock.genericUser.id))
             .set(constants.AUTHORIZATION_HEADER_NAME, accessToken.token);
         });
 
@@ -232,7 +234,7 @@ describe('crytoCoin controller', () => {
 
           request = await chai
             .request(server)
-            .get(`/coins/top_3/users/${userMock.genericUser.id}`)
+            .get(TOP_COINS_FOR_USER_ENDPOINT(userMock.genericUser.id))
             .set(constants.AUTHORIZATION_HEADER_NAME, accessToken.token);
         });
 

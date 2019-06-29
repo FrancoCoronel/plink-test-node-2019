@@ -4,6 +4,7 @@ const fs = require('fs'),
   chaiHttp = require('chai-http'),
   chai = require('chai'),
   models = require('../app/models'),
+  simple = require('simple-mock'),
   path = require('path');
 
 chai.use(chaiHttp);
@@ -33,3 +34,7 @@ const requireAllTestFiles = pathToSearch => {
 };
 
 requireAllTestFiles(normalizedPath);
+
+afterEach(() => {
+  simple.restore();
+});

@@ -140,17 +140,17 @@ describe('users controller', () => {
     let request;
     let createdUser;
     const userToCreate = {
-      username: userMock.userInfo.username,
-      password: userMock.userInfo.password,
-      first_name: userMock.userInfo.firstName,
-      last_name: userMock.userInfo.lastName,
-      preference_money: userMock.userInfo.preferenceMoney
+      username: userMock.genericUser.username,
+      password: userMock.genericUser.password,
+      first_name: userMock.genericUser.firstName,
+      last_name: userMock.genericUser.lastName,
+      preference_money: userMock.genericUser.preferenceMoney
     };
 
     context('When :userService.create works OK', () => {
       beforeEach(async () => {
         mockFetchers();
-        createdUser = simpleMock.mock(userService, 'create').resolveWith(userMock.userInfo);
+        createdUser = simpleMock.mock(userService, 'create').resolveWith(userMock.genericUser);
         request = await chai
           .request(server)
           .post('/users')
@@ -168,7 +168,7 @@ describe('users controller', () => {
 
       it('returns information of created user', () => {
         const responseBody = request.body;
-        expect(responseBody).to.deep.equal(userSerializer.user(userMock.userInfo));
+        expect(responseBody).to.deep.equal(userSerializer.user(userMock.genericUser));
       });
     });
 
@@ -176,7 +176,7 @@ describe('users controller', () => {
       const errorMessage = 'Error trying to create a user';
       beforeEach(async () => {
         mockFetchers();
-        simpleMock.mock(userService, 'getById').resolveWith(userMock.userInfo);
+        simpleMock.mock(userService, 'getById').resolveWith(userMock.genericUser);
         failedCreation = simpleMock
           .mock(userService, 'create')
           .rejectWith(errors.databaseError(errorMessage));
