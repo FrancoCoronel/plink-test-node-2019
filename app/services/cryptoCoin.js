@@ -72,7 +72,7 @@ exports.getTop3CoinsInfo = async (coinIds, preferenceMoney, order) => {
   const coindIdsWithoutPreferenceMoney = _.without(coinIds, preferenceMoney);
   try {
     const coinsInfo = await getCoinsInfo(coindIdsWithoutPreferenceMoney, preferenceMoney);
-    return _.orderBy(coinsInfo, ['price'], [order]).slice(0, TOP3);
+    return _.orderBy(coinsInfo, ['to_quantity'], [order]).slice(0, TOP3);
   } catch (err) {
     logger.error('Error while trying to get top 3 coins info');
     throw err;

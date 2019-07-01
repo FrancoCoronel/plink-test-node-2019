@@ -8,4 +8,7 @@ factory.define(cryptoCoinFactoryId, CryptoCoin, {});
 
 const newCoin = (userId, coin) => factory.create(cryptoCoinFactoryId, { userId, coin });
 
+const newCoins = coins => factory.createMany(cryptoCoinFactoryId, coins);
+
 exports.newCoin = newCoin;
+exports.newCoins = newCoins;

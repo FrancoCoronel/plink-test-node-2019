@@ -4,6 +4,8 @@ const chance = require('chance').Chance(),
   userMock = require('./user'),
   constants = require('../../../app/constants');
 
+const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW';
+
 exports.coinInfo = {
   source: 'BraveNewCoin',
   coin_id: 'LTC',
@@ -27,14 +29,15 @@ exports.addedCoinForUser = userId => ({
 exports.coinsOfUser = userId =>
   Array.from({ length: chance.integer({ min: 5, max: 10 }) }, () => ({
     userId,
-    coin: chance.string()
+    coin: chance.string({ pool: letters })
   }));
 
 exports.currentlyCoinsInfo = coins =>
   coins.map(coin => ({
     to_quantity: chance.floating({ min: 1, max: 100 }),
-    from_name: coin,
-    source: chance.string()
+    from_name: chance.string({pool: letters}),
+    source: chance.string(),
+    from_symbol: coin
   }));
 
 exports.ramdomValidCoin = () => {
@@ -55,3 +58,10 @@ exports.notFoundResponse = {
     success: false,
     error: 'The coin specified is not available'
 };
+
+exports.currentlyCoinInfo = coin => ({
+    to_quantity: chance.floating({ min: 1, max: 100 }),
+    from_name: chance.string({ pool: letters, length: 10 }),
+    source: chance.string(),
+    from_symbol: coin
+  });

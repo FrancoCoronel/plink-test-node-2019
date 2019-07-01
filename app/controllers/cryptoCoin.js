@@ -12,6 +12,7 @@ exports.coinsOfUser = async (req, res, next) => {
 
   try {
     if (authenticatedUserId !== userId) {
+      logger.error('User is not allowed to list coins of another user');
       throw errors.forbiddenError('User is not allowed to list coins of another user');
     }
     const coinsOfUser = await cryptoCoinService.getCoinsOfUser(userId);
@@ -31,6 +32,7 @@ exports.getTop3CoinsOfUser = async (req, res, next) => {
   logger.info(`User ${req.user.id} is trying to list the top 3 coins`);
   try {
     if (authenticatedUserId !== userId) {
+      logger.error('User is not allowed to list the top 3 coins of another user');
       throw errors.forbiddenError('User is not allowed to list coins of another user');
     }
     const coinsOfUser = await cryptoCoinService.getCoinsOfUser(userId);
