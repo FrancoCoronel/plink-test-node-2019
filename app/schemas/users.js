@@ -35,14 +35,18 @@ exports.create = {
     exists: true,
     isString: true,
     isLength: {
-      options: { min: 4, max: 8 }
+      options: { min: 4, max: 20 }
     }
   },
   password: {
     in: 'body',
     errorMessage: paramErrors.PASSWORD,
     exists: true,
-    isString: true
+    isString: true,
+    isAlphanumeric: true,
+    isLength: {
+      options: { min: 8, max: 20 }
+    }
   },
   preference_money: {
     in: 'body',

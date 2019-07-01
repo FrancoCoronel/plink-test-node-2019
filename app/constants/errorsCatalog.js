@@ -1,3 +1,4 @@
+/* eslint-disable */
 const constants = require('../constants');
 
 module.exports = {
@@ -11,8 +12,7 @@ module.exports = {
     PASSWORD: { code: 'WP004', message: 'password is mandatory and must be string' },
     PREFERENCE_MONEY: {
       code: 'WP005',
-      message: `preference_money is mandatory and must be string 
-      with one of these permitted values: ${constants.PREFERENCE_MONEY}`
+      message: `preference_money is mandatory and must be string with one of these permitted values: ${constants.PREFERENCE_MONEY}`
     },
     COIN: {
       code: 'WP006',

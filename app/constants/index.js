@@ -8,3 +8,4 @@ exports.COIN_API_URL = config.common.coinAPI.url;
 exports.X_RAPID_API_KEY = config.common.coinAPI.xRapidApiKey;
 exports.ORDER = ['asc', 'desc'];
 exports.DEFAULT_ORDER = 'desc';
+exports.MAX_INT_VALUE_DB = 2147483647;
