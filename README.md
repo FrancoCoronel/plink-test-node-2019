@@ -44,13 +44,21 @@ By default, the environment will be **development**, but you can easily change i
 #### Environment variables
 `Dotenv` is used for managing environment variables. They are stored in the `/.env` file. Take into account that the variables defined in the `bashrc` are not overrided.
 
-The environment variables should be added to the `.env` file in the form of `NAME=VALUE`, as the following example:
+The following environment variables must be added to the `.env`:
+
 ```
-DB_USERNAME=root
-DB_PASS=superpass
-DB_PASSWORD=superpass
-PORT=8081
-CLIENTS_API=http://api.clients.example.org/
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=crypto-wrapper
+DB_USERNAME=crypto-wrapper
+DB_PASSWORD=crypto-wrapper
+DB_NAME_TEST=crypto-wrapper-test
+NODE_API_SESSION_SECRET=6ULTRpqpAanKqnVaaExq9erf1CtT7JSFJfQe9xR4XNQBId8
+SALT_ROUNDS=10
+EXPIRATION_DAYS=1
+PORT=5000
+COIN_API_URL=https://bravenewcoin-v1.p.rapidapi.com
+X_RAPID_API_KEY=44a45ae152mshf1b06580c34aa6ap10849cjsnd14cc3019e78
 ```
 
 **Remember not to push nor commit the `.env` file.**
